@@ -1,10 +1,5 @@
 our route optimization system to estimate and minimize vehicle emissions for each route, provide real-time optimal routes, and ensure the system is user-friendly and accessible. Let's update our existing code to incorporate these features.
 
-Let's update our React project to include these features:
-
-```typescriptreact project="route-optimization"
-...
-```
 
 These updates enhance our route optimization system with the following features:
 
