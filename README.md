@@ -34,3 +34,9 @@ OPENWEATHERMAP_API_KEY=your_openweathermap_api_key
 Replace `your_tomtom_api_key` and `your_openweathermap_api_key` with your actual API keys from TomTom and OpenWeatherMap respectively.
 
 This implementation provides a user-friendly, accessible, and eco-conscious route optimization system that estimates and minimizes vehicle emissions while providing real-time optimal routes with detailed emissions data for each option.
+
+The output will be
+
+![WhatsApp Image 2025-01-07 at 21 39 24_162323b0](https://github.com/user-attachments/assets/0271b6e0-cdda-4407-8717-8174ceb555ce)
+
+![WhatsApp Image 2025-01-07 at 21 42 15_21e91560](https://github.com/user-attachments/assets/4d0dce80-4ac4-4602-982a-26935054be49)
