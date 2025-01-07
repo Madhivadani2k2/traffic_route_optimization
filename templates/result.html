@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Results</title>
+</head>
+<body>
+    <h1>Route Results</h1>
+    <div>
+        <h2>Route Map</h2>
+        {{ map_html|safe }}
+    </div>
+    <p>Distance: {{ distance }} km</p>
+    <p>Estimated Emissions: {{ emissions }} kg CO2</p>
+    <h2>Additional Information</h2>
+    <p>Traffic Data: {{ traffic_data }}</p>
+    <p>Air Quality Data: {{ air_quality_data }}</p>
+    <a href="/">Back</a>
+</body>
+</html>

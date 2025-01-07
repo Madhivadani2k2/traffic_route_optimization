@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-Friendly Route Planner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .map-placeholder {
+            background-color: #ecf0f1;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: #7f8c8d;
+        }
+        .route-option {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .route-option h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .route-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Eco-Friendly Route Planner</h1>
+    <div class="container">
+        <div class="card">
+            <h2>Route Details</h2>
+            <form>
+                <div class="form-group">
+                    <label for="vehicle-type">Vehicle Type:</label>
+                    <select id="vehicle-type" name="vehicle-type">
+                        <option value="">Select vehicle type</option>
+                        <option value="car">Car</option>
+                        <option value="truck">Truck</option>
+                        <option value="van">Van</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="origin">Origin:</label>
+                    <input type="text" id="origin" name="origin" placeholder="Enter origin">
+                </div>
+                <div class="form-group">
+                    <label for="destination">Destination:</label>
+                    <input type="text" id="destination" name="destination" placeholder="Enter destination">
+                </div>
+                <button type="submit">Calculate Routes</button>
+            </form>
+        </div>
+        <div class="card">
+            <h2>Map</h2>
+            <div class="map-placeholder" role="img" aria-label="Map placeholder">
+                Map will be displayed here
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <h2>Route Options</h2>
+        <div class="route-option">
+            <h3>Fastest Route</h3>
+            <div class="route-details">
+                <p><strong>Duration:</strong> 1h 30m</p>
+                <p><strong>Distance:</strong> 80 km</p>
+                <p><strong>Emissions:</strong> 15 kg CO2</p>
+                <p><strong>Traffic:</strong> Moderate</p>
+                <p><strong>Weather:</strong> Clear</p>
+            </div>
+        </div>
+        <div class="route-option">
+            <h3>Eco-friendly Route</h3>
+            <div class="route-details">
+                <p><strong>Duration:</strong> 1h 45m</p>
+                <p><strong>Distance:</strong> 85 km</p>
+                <p><strong>Emissions:</strong> 12 kg CO2</p>
+                <p><strong>Traffic:</strong> Low</p>
+                <p><strong>Weather:</strong> Clear</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

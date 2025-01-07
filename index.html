@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Optimization</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold mb-4">Route Optimization</h1>
+        
+    <h2>
+        Find the most efficient and environmentally friendly route for your journey.</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <form id="routeForm" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="start">
+                            Start (lat,lon)
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="start" type="text" placeholder="e.g., 51.507351,-0.127758">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="end">
+                            End (lat,lon)
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="end" type="text" placeholder="e.g., 51.507351,-0.127758">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="vehicleType">
+                            Vehicle Type
+                        </label>
+                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="vehicleType">
+                            <option value="car">Car</option>
+                            <option value="truck">Truck</option>
+                            <option value="van">Van</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                            Optimize Route
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <div id="map" class="h-64 md:h-full"></div>
+            </div>
+        </div>
+        <div id="results" class="mt-4"></div>
+    </div>
+    <script>
+        const map = L.map('map').setView([51.505, -0.09], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        let routeLayer;
+
+        document.getElementById('routeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const start = document.getElementById('start').value;
+            const end = document.getElementById('end').value;
+            const vehicleType = document.getElementById('vehicleType').value;
+
+            const response = await fetch('/optimize', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ start, end, vehicleType }),
+            });
+
+            const data = await response.json();
+
+            if (routeLayer) {
+                map.removeLayer(routeLayer);
+            }
+
+            routeLayer = L.geoJSON(data.route).addTo(map);
+            map.fitBounds(routeLayer.getBounds());
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <h2 class="text-xl font-bold mb-2">Route Details</h2>
+                    <p><strong>Distance:</strong> ${(data.distance / 1000).toFixed(2)} km</p>
+                    <p><strong>Duration:</strong> ${(data.duration / 60).toFixed(2)} minutes</p>
+                    <p><strong>Emissions:</strong> ${data.emissions.toFixed(2)} g CO2</p>
+                </div>
+            `;
+        });
+    </script>
+
+    <div class="card">
+        <h2>Route Options</h2>
+        <div class="route-option">
+            <h3>Fastest Route</h3>
+            <div class="route-details">
+                <p><strong>Duration:</strong> 1h 30m</p>
+                <p><strong>Distance:</strong> 80 km</p>
+                <p><strong>Emissions:</strong> 15 kg CO2</p>
+                <p><strong>Traffic:</strong> Moderate</p>
+                <p><strong>Weather:</strong> Clear</p>
+            </div>
+        </div>
+        <div class="route-option">
+            <h3>Eco-friendly Route</h3>
+            <div class="route-details">
+                <p><strong>Duration:</strong> 1h 45m</p>
+                <p><strong>Distance:</strong> 85 km</p>
+                <p><strong>Emissions:</strong> 12 kg CO2</p>
+                <p><strong>Traffic:</strong> Low</p>
+                <p><strong>Weather:</strong> Clear</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
